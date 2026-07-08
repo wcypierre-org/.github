@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/wcypierre-org/.github/security/policy
+    about: Please do not disclose vulnerabilities in public issues.
+  - name: Support expectations
+    url: https://github.com/wcypierre-org/.github/blob/main/SUPPORT.md
+    about: Read the support policy before opening general questions.

@@ -1,0 +1,58 @@
+name: Bug report
+description: Report behavior that is broken, incorrect, or surprising.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please include enough detail for a maintainer to reproduce or reason about the issue.
+  - type: input
+    id: affected-area
+    attributes:
+      label: Affected repository or area
+      description: Name the repository, component, script, workflow, or page involved.
+      placeholder: "example: jira-server-api CI workflow"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the bug clearly.
+      placeholder: "The workflow failed when..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Provide commands, inputs, URLs, or actions that reproduce the issue.
+      placeholder: |
+        1. Run ...
+        2. Open ...
+        3. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs, screenshots, or links
+      description: Paste relevant output, screenshots, run URLs, or error messages. Remove secrets first.
+      render: text
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, browser, runtime, device, or other context when relevant.
+      placeholder: "Windows 11, Node 26, Chrome..."
+    validations:
+      required: false
