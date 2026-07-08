@@ -1,0 +1,47 @@
+name: Feature request
+description: Suggest a focused improvement or new capability.
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement. Please describe the use case first so the implementation can stay focused.
+  - type: input
+    id: affected-area
+    attributes:
+      label: Affected repository or area
+      description: Name the repository, component, script, workflow, or page involved.
+      placeholder: "example: tab-snooze import flow"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What are you trying to accomplish, and what is difficult today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the smallest useful change that would solve the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: List workarounds or alternate approaches, if any.
+    validations:
+      required: false
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Success criteria
+      description: How would you know this is done?
+      placeholder: |
+        - ...
+        - ...
+    validations:
+      required: false
