@@ -1,0 +1,12 @@
+owner: wcypierre-org
+service_class: organization-policy
+data_class: public-organization-policy
+runtime:
+  kind: documentation
+  source: GOVERNANCE.md
+deployment:
+  kind: not-applicable
+  reason: Organization policy and profile documents; no application service to deploy.
+backup:
+  kind: git
+  scope: Committed policy and profile documents only; Git history is not an independent off-site backup.
