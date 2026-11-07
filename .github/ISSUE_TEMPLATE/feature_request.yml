@@ -31,17 +31,29 @@ body:
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives considered
-      description: List workarounds or alternate approaches, if any.
+      label: Current workaround
+      description: Explain how you handle the problem today and where that approach falls short.
     validations:
-      required: false
+      required: true
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often is this needed?
+      options:
+        - Daily
+        - Weekly
+        - Monthly
+        - Occasionally
+        - One-time migration or recovery
+    validations:
+      required: true
   - type: textarea
     id: acceptance
     attributes:
-      label: Success criteria
-      description: How would you know this is done?
+      label: Measurable success criteria
+      description: Describe observable outcomes that would prove the problem is solved.
       placeholder: |
         - ...
         - ...
     validations:
-      required: false
+      required: true

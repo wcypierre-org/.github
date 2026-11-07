@@ -6,3 +6,6 @@ contact_links:
   - name: Support expectations
     url: https://github.com/wcypierre-org/.github/blob/main/SUPPORT.md
     about: Read the support policy before opening general questions.
+  - name: Repository and maintenance directory
+    url: https://github.com/wcypierre-org/.github/blob/main/REPOSITORIES.md
+    about: Find the owning repository, purpose, lifecycle, and support route for every active project.
