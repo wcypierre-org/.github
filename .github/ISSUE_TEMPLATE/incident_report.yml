@@ -1,0 +1,86 @@
+name: Cross-repository incident
+description: Report an operational failure affecting one or more wcypierre-org services.
+title: "[Incident]: "
+labels:
+  - incident
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for an active or recent service incident. Do not include credentials, cookies, personal data, private URLs, or exploit details. Security vulnerabilities belong in the private reporting flow.
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Who or what is affected, and what can no longer be completed?
+    validations:
+      required: true
+  - type: textarea
+    id: affected-repositories
+    attributes:
+      label: Affected services and repositories
+      description: List every known application, dependency, workflow, runner pool, or repository involved.
+      placeholder: |
+        - jira-tracker: API requests fail
+        - jira-server-api: upstream timeout
+        - integration-mock-lab: unaffected
+    validations:
+      required: true
+  - type: input
+    id: started-at
+    attributes:
+      label: First observed time
+      description: Include date, time, and timezone.
+      placeholder: "2026-11-07 09:30 Asia/Kuala_Lumpur"
+    validations:
+      required: true
+  - type: dropdown
+    id: current-state
+    attributes:
+      label: Current state
+      options:
+        - Ongoing
+        - Mitigated but not resolved
+        - Resolved
+        - Unknown
+    validations:
+      required: true
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Timeline and observations
+      description: Record relevant state changes, errors, and recovery attempts in chronological order.
+      placeholder: |
+        - 09:30 +08: First failure observed
+        - 09:42 +08: Confirmed dependency unavailable
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction or health checks
+      description: Provide safe commands, URLs, or actions that show the failure. Redact private values.
+      render: text
+    validations:
+      required: false
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Workaround or mitigation
+      description: Describe anything that restores service temporarily, including its limitations.
+    validations:
+      required: false
+  - type: textarea
+    id: related
+    attributes:
+      label: Related issues, runs, or deployments
+      description: Link related reports and sanitized evidence so investigation stays connected.
+    validations:
+      required: false
+  - type: checkboxes
+    id: redaction
+    attributes:
+      label: Sensitive-data check
+      options:
+        - label: I removed secrets, credentials, cookies, personal data, private URLs, and exploit details.
+          required: true

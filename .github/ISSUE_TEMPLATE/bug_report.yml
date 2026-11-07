@@ -22,6 +22,14 @@ body:
       placeholder: "The workflow failed when..."
     validations:
       required: true
+  - type: input
+    id: deployed-version
+    attributes:
+      label: Version, commit, or deployment
+      description: Identify the affected release, commit SHA, image tag, or deployment when known.
+      placeholder: "example: main@abc1234 or v2.4.1"
+    validations:
+      required: false
   - type: textarea
     id: expected
     attributes:
@@ -41,13 +49,40 @@ body:
     validations:
       required: true
   - type: textarea
-    id: evidence
+    id: reproduction-inputs
     attributes:
-      label: Logs, screenshots, or links
-      description: Paste relevant output, screenshots, run URLs, or error messages. Remove secrets first.
+      label: Reproduction inputs
+      description: Include the smallest sanitized configuration or input needed to reproduce the problem. Never include tokens, passwords, private keys, or personal data.
       render: text
     validations:
       required: false
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: Frequency
+      description: How often does the problem occur with the reproduction steps above?
+      options:
+        - Every time
+        - Intermittently
+        - Happened once
+        - Unknown
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs, screenshots, or links
+      description: Paste relevant output, screenshots, run URLs, or error messages. Remove tokens, passwords, private keys, cookies, personal data, and private URLs first.
+      render: text
+    validations:
+      required: false
+  - type: checkboxes
+    id: redaction
+    attributes:
+      label: Sensitive-data check
+      options:
+        - label: I removed secrets, credentials, cookies, personal data, and other private information from this report.
+          required: true
   - type: textarea
     id: environment
     attributes:

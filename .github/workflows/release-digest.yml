@@ -1,0 +1,43 @@
+name: Organization release digest
+
+on:
+  schedule:
+    - cron: "17 0 * * 1"
+  workflow_dispatch:
+    inputs:
+      since:
+        description: First merged date, YYYY-MM-DD (UTC); defaults to seven days ago
+        required: false
+        type: string
+      until:
+        description: Last merged date, YYYY-MM-DD (UTC); defaults to today
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Generate digest
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DIGEST_SINCE: ${{ inputs.since }}
+          DIGEST_UNTIL: ${{ inputs.until }}
+        run: |
+          args=(--output release-digest.md)
+          if [[ -n "$DIGEST_SINCE" ]]; then args+=(--since "$DIGEST_SINCE"); fi
+          if [[ -n "$DIGEST_UNTIL" ]]; then args+=(--until "$DIGEST_UNTIL"); fi
+          python scripts/release_digest.py "${args[@]}"
+          cat release-digest.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: organization-release-digest
+          path: release-digest.md
+          retention-days: 30
