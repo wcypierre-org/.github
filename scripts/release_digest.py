@@ -5,33 +5,39 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import http.client
 import json
 import os
 import pathlib
 import urllib.parse
-import urllib.request
 
 
 def fetch_merged_prs(org: str, since: dt.date, until: dt.date, token: str) -> list[dict]:
     query = f"org:{org} is:pr is:merged merged:{since.isoformat()}..{until.isoformat()}"
-    url = "https://api.github.com/search/issues?" + urllib.parse.urlencode(
+    path = "/search/issues?" + urllib.parse.urlencode(
         {"q": query, "sort": "updated", "order": "asc", "per_page": 100}
     )
-    request = urllib.request.Request(
-        url,
-        headers={
-            "Accept": "application/vnd.github+json",
-            "Authorization": f"Bearer {token}",
-            "X-GitHub-Api-Version": "2022-11-28",
-            "User-Agent": f"{org}-release-digest",
-        },
-    )
-    with urllib.request.urlopen(request, timeout=30) as response:
-        payload = json.load(response)
+    connection = http.client.HTTPSConnection("api.github.com", timeout=30)
+    try:
+        connection.request(
+            "GET",
+            path,
+            headers={
+                "Accept": "application/vnd.github+json",
+                "Authorization": f"Bearer {token}",
+                "X-GitHub-Api-Version": "2022-11-28",
+                "User-Agent": f"{org}-release-digest",
+            },
+        )
+        response = connection.getresponse()
+        payload = json.loads(response.read().decode("utf-8"))
+        if response.status >= 400:
+            raise RuntimeError(f"GitHub search failed with HTTP {response.status}")
+    finally:
+        connection.close()
     if payload.get("total_count", 0) > 100:
         raise RuntimeError("Digest range contains more than 100 pull requests; use a narrower date range")
     return payload.get("items", [])
-
 
 def repository_name(item: dict) -> str:
     return item["repository_url"].rstrip("/").rsplit("/", 1)[-1]
