@@ -7,9 +7,11 @@ Each scenario references an existing automated regression case. The regression t
 contain the automated assertions. These feature files do not add Cucumber step bindings or upload
 execution results.
 
-The pinned shared workflow validates scenario identities on pull requests. Reviewed main-branch
-changes publish definitions to the XRAY project on Jira Server. A workflow dispatch on main can
-resynchronize them. Publishing uses the XRAY_JIRA_TOKEN GitHub secret.
+Public Community health CI validates scenario identities on pull requests. The private
+application-workflows repository publishes these definitions through its Xray public repository sync
+workflow every hour and on explicit dispatch. The relay resolves an immutable main-branch commit,
+validates it again, and uses the repository-prefixed identities. Jira credentials remain in the
+private workflow. Public repositories cannot call the private reusable workflow directly.
 
 Keep the feature path and each @id:number stable. Xray matches the repository-prefixed feature path
 and ID. Other sample features and fixtures are outside the publish directory.
